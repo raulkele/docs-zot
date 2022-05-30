@@ -93,6 +93,6 @@ include::user-guide-chapters/cookbook/advanced.adoc[]
 
 :leveloffset: +1
 
-include::common/bias-free.adoc[]
+include::bias-free.adoc[]
 
 :leveloffset: -1
