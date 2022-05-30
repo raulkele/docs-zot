@@ -20,9 +20,9 @@
 
 :leveloffset: +1
 
-include::user-guide-chapters/introduction/what-is.adoc[]
+include::partial$/introduction/what-is.adoc[]
 
-include::user-guide-chapters/introduction/why.adoc[]
+include::partial$/introduction/why.adoc[]
 
 :leveloffset: -1
 
@@ -31,9 +31,9 @@ include::user-guide-chapters/introduction/why.adoc[]
 
 :leveloffset: +1
 
-include::user-guide-chapters/introduction/building.adoc[]
+include::partial$/introduction/building.adoc[]
 
-include::user-guide-chapters/introduction/launching.adoc[]
+include::partial$/introduction/launching.adoc[]
 
 :leveloffset: -1
 
@@ -41,23 +41,23 @@ include::user-guide-chapters/introduction/launching.adoc[]
 
 :leveloffset: +1
 
-//include::user-guide-chapters/server-configuration/server.adoc[]
+//include::partial$/server-configuration/server.adoc[]
 
-include::user-guide-chapters/server-configuration/network-config.adoc[]
+include::partial$/server-configuration/network-config.adoc[]
 
-include::user-guide-chapters/server-configuration/logging-config.adoc[]
+include::partial$/server-configuration/logging-config.adoc[]
 
-include::user-guide-chapters/server-configuration/storage-config.adoc[]
+include::partial$/server-configuration/storage-config.adoc[]
 
-include::user-guide-chapters/server-configuration/authentication-config.adoc[]
+include::partial$/server-configuration/authentication-config.adoc[]
 
-include::user-guide-chapters/server-configuration/authorization-config.adoc[]
+include::partial$/server-configuration/authorization-config.adoc[]
 
-include::user-guide-chapters/server-configuration/metrics-config.adoc[]
+include::partial$/server-configuration/metrics-config.adoc[]
 
-include::user-guide-chapters/server-configuration/sync-registries.adoc[]
+include::partial$/server-configuration/sync-registries.adoc[]
 
-include::user-guide-chapters/server-configuration/clustering.adoc[]
+include::partial$/server-configuration/clustering.adoc[]
 
 :leveloffset: -1
 
@@ -66,7 +66,7 @@ include::user-guide-chapters/server-configuration/clustering.adoc[]
 
 :leveloffset: +1
 
-include::user-guide-chapters/zli/zli.adoc[]
+include::partial$/zli/zli.adoc[]
 
 :leveloffset: -1
 
@@ -75,7 +75,7 @@ include::user-guide-chapters/zli/zli.adoc[]
 
 :leveloffset: +1
 
-include::user-guide-chapters/zb/zb.adoc[]
+include::partial$/zb/zb.adoc[]
 
 :leveloffset: -1
 
@@ -84,7 +84,7 @@ include::user-guide-chapters/zb/zb.adoc[]
 
 :leveloffset: +1
 
-include::user-guide-chapters/cookbook/advanced.adoc[]
+include::partial$/cookbook/advanced.adoc[]
 
 :leveloffset: -1
 
