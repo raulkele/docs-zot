@@ -118,7 +118,7 @@
 <li><a href="#_why_zot">Why zot?</a></li>
 </ul>
 </li>
-<li><a href="#_getting_started">Getting Started</a>
+<li><a href="#_getting_started">Getting started</a>
 <ul class="sectlevel2">
 <li><a href="#_how_to_get_zot">How to get zot</a>
 <ul class="sectlevel3">
@@ -144,7 +144,7 @@
 <li><a href="#_launching_zot">Launching zot</a></li>
 </ul>
 </li>
-<li><a href="#_using_the_command_line_interface_zli">Using the Command Line Interface (zli)</a>
+<li><a href="#_using_the_command_line_interface_zli">Using the command line interface (zli)</a>
 <ul class="sectlevel2">
 <li><a href="#_zli_chapter">What is zli?</a></li>
 <li><a href="#_how_to_get_zli">How to get zli</a>
@@ -171,10 +171,21 @@
 <li><a href="#_verifying_config">Verifying the configuration file</a></li>
 </ul>
 </li>
-<li><a href="#_network_config">Network configuration</a></li>
 </ul>
 </li>
-<li><a href="#_security_and_hardening">Security and Hardening</a>
+<li><a href="#_network_config">Network configuration</a></li>
+<li><a href="#_storage_configuration">Storage configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_storage_config">Storage options</a></li>
+<li><a href="#_local_storage_config">Configuring local storage</a></li>
+<li><a href="#_s3_storage_config">Configuring S3 storage</a>
+<ul class="sectlevel3">
+<li><a href="#_s3_credentials">S3 Credentials</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_security_and_hardening">Security and hardening</a>
 <ul class="sectlevel2">
 <li><a href="#_authentication">Authentication</a>
 <ul class="sectlevel3">
@@ -189,18 +200,7 @@
 <li><a href="#_rate_limiting">Rate limiting</a></li>
 </ul>
 </li>
-<li><a href="#_storage">Storage</a>
-<ul class="sectlevel2">
-<li><a href="#_storage_config">Storage options</a></li>
-<li><a href="#_local_storage_config">Configuring local storage</a></li>
-<li><a href="#_s3_storage_config">Configuring S3 storage</a>
-<ul class="sectlevel3">
-<li><a href="#_s3_credentials">S3 Credentials</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_syncing_and_mirroring_registries">Syncing and Mirroring Registries</a>
+<li><a href="#_syncing_and_mirroring_registries">Syncing and mirroring registries</a>
 <ul class="sectlevel2">
 <li><a href="#_sync_registries">Synchronizing registries</a></li>
 <li><a href="#_advanced_topics">Advanced topics</a></li>
@@ -211,13 +211,13 @@
 <li><a href="#_logging">Logging</a></li>
 <li><a href="#_metrics_config">Metrics</a>
 <ul class="sectlevel3">
-<li><a href="#_collecting_metrics_using_a_node_exporter">Collecting metrics using a node exporter</a></li>
-<li><a href="#_enabling_metrics_for_zot">Enabling metrics for zot</a></li>
+<li><a href="#_enabling_metrics_for_a_full_zot_image_with_extensions">Enabling metrics for a full zot image with extensions</a></li>
+<li><a href="#_collecting_metrics_from_a_minimal_zot_image_using_a_node_exporter">Collecting metrics from a minimal zot image using a node exporter</a></li>
 </ul>
 </li>
-<li><a href="#_zb_chapter">Benchmarking zot with zb</a></li>
-<li><a href="#_how_to_get_zb">How to get zb</a>
+<li><a href="#_zb_chapter">Benchmarking zot with zb</a>
 <ul class="sectlevel3">
+<li><a href="#_how_to_get_zb">How to get zb</a></li>
 <li><a href="#_supported_platforms_3">Supported platforms</a></li>
 <li><a href="#_downloading_zb_binaries">Downloading zb binaries</a></li>
 <li><a href="#_building_zb_from_source">Building zb from source</a></li>
@@ -226,7 +226,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#_enterprise_wide_zot">Enterprise Wide zot</a>
+<li><a href="#_enterprise_wide_zot">Enterprise-wide zot</a>
 <ul class="sectlevel2">
 <li><a href="#_clustering_zot">Clustering zot</a>
 <ul class="sectlevel3">
@@ -266,7 +266,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Revised: 2022-06-08</p>
+<p>Revised: 2022-06-16</p>
 </div>
 </div>
 </div>
@@ -447,7 +447,7 @@ and the possible attack surface.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a><a class="link" href="#_getting_started">Getting Started</a></h2>
+<h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a><a class="link" href="#_getting_started">Getting started</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_how_to_get_zot"><a class="anchor" href="#_how_to_get_zot"></a><a class="link" href="#_how_to_get_zot">How to get zot</a></h3>
@@ -523,7 +523,7 @@ option might be optimal for a registry embedded in a shipping product.</p>
 <div class="sect3">
 <h4 id="_binary_image_file_naming"><a class="anchor" href="#_binary_image_file_naming"></a><a class="link" href="#_binary_image_file_naming">Binary image file naming</a></h4>
 <div class="paragraph">
-<p>An executable binary image for zot is named using the platform and
+<p>An executable binary image for zot is named using the target platform and
 architecture from the
  <a href="#supported-platforms-and-architectures-table-zot">Supported platforms and architectures</a>
  table. The general format of a binary image file name is one of these two:</p>
@@ -715,8 +715,20 @@ For convenience, you can rename the binary image file to simply <code>zot</code>
 <div class="sect3">
 <h4 id="_building_and_deploying_a_zot_container_image_from_source"><a class="anchor" href="#_building_and_deploying_a_zot_container_image_from_source"></a><a class="link" href="#_building_and_deploying_a_zot_container_image_from_source">Building and deploying a zot container image from source</a></h4>
 <div class="paragraph">
-<p>A sample Docker file is provided on the <a href="https://github.com/project-zot/zot/blob/main/Dockerfile">zot project page</a>
-in GitHub. Using this Docker file, you can build a container image that runs
+<p>A sample Dockerfile is provided on the <a href="https://github.com/project-zot/zot/blob/main/Dockerfile">zot project page</a>
+in GitHub. You can edit the sample file with your specific values, such as the desired
+operating system, hardware architecture, and full or minimal build, as in this example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ARG OS=linux
+ARG ARCH=amd64
+
+RUN make COMMIT=$COMMIT OS=$OS ARCH=$ARCH clean binary-minimal</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using your edited Dockerfile, you can build a container image that runs
 the latest zot by running the following command:</p>
 </div>
 <div class="listingblock">
@@ -741,7 +753,7 @@ as in these examples:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>A container image built with the sample Docker file and deployed with the example
+<p>A container image built with the sample Dockerfile and deployed with the example
 command results in a running registry at <code><a href="http://localhost:5000" class="bare">http://localhost:5000</a></code>.  Registry content
 is stored at <code>.registry</code>, which is bind mounted to <code>/var/lib/registry</code> in
 the container. By default, auth is disabled.  As part of the build, a YAML
@@ -769,9 +781,10 @@ content storage.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Where are OS, ARCH, and binary/binary-minimal options specified? They are arguments
-in the Dockerfile, so should the <code>make image</code> command be:<br>
-<code>make OS=<em>os</em> ARCH=<em>architecture</em> {binary | binary-minimal} image</code> ?</p>
+<p>Does the 'make image' command use the Dockerfile?  Wouldn&#8217;t we use a docker command?</p>
+</li>
+<li>
+<p>How do we specify the inclusion of zli and zb binaries in the container?</p>
 </li>
 </ol>
 </div>
@@ -836,7 +849,7 @@ for errors or conflicts using the procedure described in
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_the_command_line_interface_zli"><a class="anchor" href="#_using_the_command_line_interface_zli"></a><a class="link" href="#_using_the_command_line_interface_zli">Using the Command Line Interface (zli)</a></h2>
+<h2 id="_using_the_command_line_interface_zli"><a class="anchor" href="#_using_the_command_line_interface_zli"></a><a class="link" href="#_using_the_command_line_interface_zli">Using the command line interface (zli)</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_zli_chapter"><a class="anchor" href="#_zli_chapter"></a><a class="link" href="#_zli_chapter">What is zli?</a></h3>
@@ -1319,8 +1332,11 @@ following command:</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_network_config"><a class="anchor" href="#_network_config"></a><a class="link" href="#_network_config">Network configuration</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_config"><a class="anchor" href="#_network_config"></a><a class="link" href="#_network_config">Network configuration</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Use the <code>http</code> attribute in the configuration file to configure the zot
 network settings, as shown in the following example.</p>
@@ -1397,9 +1413,243 @@ Security (TLS) settings for the server.</p></td>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_storage_configuration"><a class="anchor" href="#_storage_configuration"></a><a class="link" href="#_storage_configuration">Storage configuration</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_storage_config"><a class="anchor" href="#_storage_config"></a><a class="link" href="#_storage_config">Storage options</a></h3>
+<div class="paragraph">
+<p>With zot, you have the option to store your registry image files either
+in local filesystem storage or in cloud storage, such as an Amazon Simple Storage
+Service (S3) bucket.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_local_storage_config"><a class="anchor" href="#_local_storage_config"></a><a class="link" href="#_local_storage_config">Configuring local storage</a></h3>
+<div class="paragraph">
+<p>Local filesystem storage for zot is configured with the <code>storage</code>
+attribute in the configuration file, as shown in the following example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"storage":{
+  "rootDirectory":"/tmp/zot",
+  "commit": true,
+  "dedupe": true,
+  "gc": true,
+  "gcDelay": "1h",
+  "gcInterval": "24h"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table lists the configurable attributes.</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rootDirectory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location  of the images stored in the server file system.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For faster performance, data written by zot is retained in memory before
+being periodically committed to disk by the operating system. To eliminate this
+retention time and cause data to be written to disk immediately, set to <code>true</code>.
+This prevents data loss but reduces performance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dedupe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the server filesystem supports hard links, you can optimize storage space by enabling
+inline deduplication of layers and blobs that are shared among multiple container images.
+Deduplication is enabled by default. Set to <code>false</code> to disable deduplication.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When an image is deleted, either by tag or by reference, orphaned blobs
+can lead to wasted storage. Garbage collection (gc) is enabled by default
+to reclaim this space. Set to <code>false</code> to disable garbage collection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gcDelay</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) If garbage collection is enabled, causes it to run once after
+the specified delay time. Requires the <code>gc</code> attribute to be <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gcInterval</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) If garbage collection is enabled, causes it to run periodically
+at the specified interval. Requires the <code>gc</code> attribute to be <code>true</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subpaths</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>You can store and serve images from multiple filesystems, each with
+their own repository paths and settings. The following example shows three subpaths.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"storage":{
+  "subPaths": {
+    "/a": {
+      "rootDirectory": "/tmp/zot1",
+      "dedupe": true,
+      "gc": true
+    },
+    "/b": {
+      "rootDirectory": "/tmp/zot2",
+      "dedupe": true
+    },
+    "/c": {
+      "rootDirectory": "/tmp/zot3",
+      "dedupe": false
+    }
+  }
+}</pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">MIKE&#8217;S QUESTIONS</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Are these the only attributes?</p>
+</li>
+<li>
+<p>What values and ranges are allowed for gcDelay and gcInterval?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_s3_storage_config"><a class="anchor" href="#_s3_storage_config"></a><a class="link" href="#_s3_storage_config">Configuring S3 storage</a></h3>
+<div class="paragraph">
+<p>Amazon Simple Storage Service (S3) for zot can be configured with the
+<code>storageDriver</code> attribute in the configuration file, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"storageDriver": {
+    "name": "s3",
+    "region": "us-east-2",
+    "bucket": "zot-storage",
+    "secure": true,
+    "skipverify": false,
+    "accesskey": "&lt;YOUR_ACCESS_KEY_ID&gt;",
+    "secretkey": "&lt;YOUR_SECRET_ACCESS_KEY&gt;"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As in the case with local filesystem storage, you can use multiple storage
+locations using the <code>subpath</code> attribute, as in the following example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"subPaths": {
+    "/a": {
+        "rootDirectory": "/zot-a",
+        "storageDriver": {
+            "name": "s3",
+            "region": "us-east-2",
+            "bucket": "zot-storage",
+            "secure": true,
+            "skipverify": false
+        }
+    },
+    "/b": {
+
+[continue]</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_s3_credentials"><a class="anchor" href="#_s3_credentials"></a><a class="link" href="#_s3_credentials">S3 Credentials</a></h4>
+<div class="paragraph">
+<p>In the first configuration file example, the S3 credentials were configured with the
+attributes <code>accesskey</code> and <code>secretkey.</code> As an alternative, you can omit these attributes
+from the configuration file and you can configure them using environment variables or a
+credential file.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Environment variables</p>
+<div class="paragraph">
+<p>Zot looks for credentials in the following environment variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_SESSION_TOKEN (optional)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Credential file</p>
+<div class="paragraph">
+<p>A credential file is a plaintext file that contains your access keys, as shown in
+the following example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[default]
+aws_access_key_id = &lt;YOUR_DEFAULT_ACCESS_KEY_ID&gt;
+aws_secret_access_key = &lt;YOUR_DEFAULT_SECRET_ACCESS_KEY&gt;
+
+[test-account]
+aws_access_key_id = &lt;YOUR_TEST_ACCESS_KEY_ID&gt;
+aws_secret_access_key = &lt;YOUR_TEST_SECRET_ACCESS_KEY&gt;
+
+[prod-account]
+; work profile
+aws_access_key_id = &lt;YOUR_PROD_ACCESS_KEY_ID&gt;
+aws_secret_access_key = &lt;YOUR_PROD_SECRET_ACCESS_KEY&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>[default]</code> heading defines credentials for the default profile, which zot
+will use unless you configure it to use another profile.  You can specify a profile using the
+<code>AWS_PROFILE</code> environment variable as in this example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>AWS_PROFILE=test-account</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The credential file must be named <code>credentials.</code> The file must be located in the
+<code>.aws/</code> folder in the home directory of the same server that is running your zot
+application.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more details about specifying S3 credentials, see the
+<a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials">AWS documentation</a>.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_security_and_hardening"><a class="anchor" href="#_security_and_hardening"></a><a class="link" href="#_security_and_hardening">Security and Hardening</a></h2>
+<h2 id="_security_and_hardening"><a class="anchor" href="#_security_and_hardening"></a><a class="link" href="#_security_and_hardening">Security and hardening</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_authentication"><a class="anchor" href="#_authentication"></a><a class="link" href="#_authentication">Authentication</a></h3>
@@ -1866,257 +2116,7 @@ specific API <code>Methods</code>. In this example, API <code>GET</code> calls a
 </div>
 </div>
 <div class="sect1">
-<h2 id="_storage"><a class="anchor" href="#_storage"></a><a class="link" href="#_storage">Storage</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_storage_config"><a class="anchor" href="#_storage_config"></a><a class="link" href="#_storage_config">Storage options</a></h3>
-<div class="paragraph">
-<p>With zot, you have the option to store your registry image files either
-in local filesystem storage or in cloud storage, such as an Amazon Simple Storage
-Service (S3) bucket.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_local_storage_config"><a class="anchor" href="#_local_storage_config"></a><a class="link" href="#_local_storage_config">Configuring local storage</a></h3>
-<div class="paragraph">
-<p>Local filesystem storage for zot is configured with the <code>storage</code>
-attribute in the configuration file, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>"storage":{
-  "rootDirectory":"/tmp/zot",
-  "commit": true,
-  "dedupe": true,
-  "gc": true,
-  "gcDelay": "1h",
-  "gcInterval": "24h"
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following table lists the configurable attributes.</p>
-</div>
-<table class="tableblock frame-all grid-all fit-content">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Attribute</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rootDirectory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Location  of the images stored in the server file system.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commit</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For faster performance, data written by zot is retained in memory before
-being periodically committed to disk by the operating system. To eliminate this
-retention time and cause data to be written to disk immediately, set to <code>true</code>.
-This prevents data loss but reduces performance.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dedupe</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If the server filesystem supports hard links, you can optimize storage space by enabling
-inline deduplication of layers and blobs that are shared among multiple container images.
-Set to <code>true</code> to enable deduplication.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gc</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When an image is deleted, either by tag or by reference, orphaned blobs
-can lead to wasted storage.  Set to <code>true</code> to enable background garbage collection to
-reclaim this space.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gcDelay</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) If garbage collection is enabled, causes it to run once after
-the specified delay time. Requires the <code>gc</code> attribute to be <code>true</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gcInterval</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) If garbage collection is enabled, causes it to run periodically
-at the specified interval. Requires the <code>gc</code> attribute to be <code>true</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subpaths</code></p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>You can store and serve images from multiple filesystems, each with
-their own repository paths and settings. The following example shows three subpaths.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>"storage":{
-  "subPaths": {
-    "/a": {
-      "rootDirectory": "/tmp/zot1",
-      "dedupe": true,
-      "gc": true
-    },
-    "/b": {
-      "rootDirectory": "/tmp/zot2",
-      "dedupe": true
-    },
-    "/c": {
-      "rootDirectory": "/tmp/zot3",
-      "dedupe": false
-    }
-  }
-}</pre>
-</div>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">MIKE&#8217;S QUESTIONS</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Are these the only attributes?</p>
-</li>
-<li>
-<p>Are the dedupe and gc attributes optional and are the defaults FALSE if not specified?</p>
-</li>
-<li>
-<p>What values and ranges are allowed for gcDelay and gcInterval?</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_s3_storage_config"><a class="anchor" href="#_s3_storage_config"></a><a class="link" href="#_s3_storage_config">Configuring S3 storage</a></h3>
-<div class="paragraph">
-<p>Amazon Simple Storage Service (S3) for zot can be configured with the
-<code>storageDriver</code> attribute in the configuration file, as shown in the following example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>"storageDriver": {
-    "name": "s3",
-    "region": "us-east-2",
-    "bucket": "zot-storage",
-    "secure": true,
-    "skipverify": false,
-    "accesskey": "&lt;YOUR_ACCESS_KEY_ID&gt;",
-    "secretkey": "&lt;YOUR_SECRET_ACCESS_KEY&gt;"
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As in the case with local filesystem storage, you can use multiple storage
-locations using the <code>subpath</code> attribute, as in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>"subPaths": {
-    "/a": {
-        "rootDirectory": "/zot-a",
-        "storageDriver": {
-            "name": "s3",
-            "region": "us-east-2",
-            "bucket": "zot-storage",
-            "secure": true,
-            "skipverify": false
-        }
-    },
-    "/b": {
-
-[continue]</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_s3_credentials"><a class="anchor" href="#_s3_credentials"></a><a class="link" href="#_s3_credentials">S3 Credentials</a></h4>
-<div class="paragraph">
-<p>In the first configuration file example, the S3 credentials were configured with the
-attributes <code>accesskey</code> and <code>secretkey.</code> As an alternative, you can omit these attributes
-from the configuration file and you can configure them using environment variables or a
-credential file.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Environment variables</p>
-<div class="paragraph">
-<p>Zot looks for credentials in the following environment variables:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-AWS_SESSION_TOKEN (optional)</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Credential file</p>
-<div class="paragraph">
-<p>A credential file is a plaintext file that contains your access keys, as shown in
-the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>[default]
-aws_access_key_id = &lt;YOUR_DEFAULT_ACCESS_KEY_ID&gt;
-aws_secret_access_key = &lt;YOUR_DEFAULT_SECRET_ACCESS_KEY&gt;
-
-[test-account]
-aws_access_key_id = &lt;YOUR_TEST_ACCESS_KEY_ID&gt;
-aws_secret_access_key = &lt;YOUR_TEST_SECRET_ACCESS_KEY&gt;
-
-[prod-account]
-; work profile
-aws_access_key_id = &lt;YOUR_PROD_ACCESS_KEY_ID&gt;
-aws_secret_access_key = &lt;YOUR_PROD_SECRET_ACCESS_KEY&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>[default]</code> heading defines credentials for the default profile, which zot
-will use unless you configure it to use another profile.  You can specify a profile using the
-<code>AWS_PROFILE</code> environment variable as in this example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>AWS_PROFILE=test-account</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The credential file must be named <code>credentials.</code> The file must be located in the
-<code>.aws/</code> folder in the home directory of the same server that is running your zot
-application.</p>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For more details about specifying S3 credentials, see the
-<a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials">AWS documentation</a>.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">MIKE&#8217;S QUESTIONS</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Do I need to define the S3 config attributes?</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_syncing_and_mirroring_registries"><a class="anchor" href="#_syncing_and_mirroring_registries"></a><a class="link" href="#_syncing_and_mirroring_registries">Syncing and Mirroring Registries</a></h2>
+<h2 id="_syncing_and_mirroring_registries"><a class="anchor" href="#_syncing_and_mirroring_registries"></a><a class="link" href="#_syncing_and_mirroring_registries">Syncing and mirroring registries</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_sync_registries"><a class="anchor" href="#_sync_registries"></a><a class="link" href="#_sync_registries">Synchronizing registries</a></h3>
@@ -2488,22 +2488,10 @@ enabled and will be stored at the specified path.</p></td>
 <h3 id="_metrics_config"><a class="anchor" href="#_metrics_config"></a><a class="link" href="#_metrics_config">Metrics</a></h3>
 <div class="paragraph">
 <p>The available methods for collecting metrics varies depending on whether your zot
-installation is the minimal (distribution-spec-only) build or the full build including extensions.</p>
+installation is a minimal (distribution-spec-only) image or a full image including extensions.</p>
 </div>
 <div class="sect3">
-<h4 id="_collecting_metrics_using_a_node_exporter"><a class="anchor" href="#_collecting_metrics_using_a_node_exporter"></a><a class="link" href="#_collecting_metrics_using_a_node_exporter">Collecting metrics using a node exporter</a></h4>
-<div class="paragraph">
-<p>The minimal zot installation exposes internal metrics in a Prometheus format
-through a node exporter. The configuration of the node exporter contains connection
-details for the zot server from which it will scrape metrics. Metrics
-are automatically enabled in the zot server upon first scrape from the
-node exporter.  No extra configuration option is needed. Similarly, the metrics
-are automatically disabled when the node exporter has not performed any scrapings
-for some period.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_enabling_metrics_for_zot"><a class="anchor" href="#_enabling_metrics_for_zot"></a><a class="link" href="#_enabling_metrics_for_zot">Enabling metrics for zot</a></h4>
+<h4 id="_enabling_metrics_for_a_full_zot_image_with_extensions"><a class="anchor" href="#_enabling_metrics_for_a_full_zot_image_with_extensions"></a><a class="link" href="#_enabling_metrics_for_a_full_zot_image_with_extensions">Enabling metrics for a full zot image with extensions</a></h4>
 <div class="paragraph">
 <p>Add the <code>metrics</code> attribute under <code>extensions</code> in the configuration file
 to enable and configure metrics, as shown in the following example.</p>
@@ -2562,8 +2550,100 @@ node exporter.</p></td>
 <li>
 <p>What additional info do we need about prometheus, etc?</p>
 </li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_collecting_metrics_from_a_minimal_zot_image_using_a_node_exporter"><a class="anchor" href="#_collecting_metrics_from_a_minimal_zot_image_using_a_node_exporter"></a><a class="link" href="#_collecting_metrics_from_a_minimal_zot_image_using_a_node_exporter">Collecting metrics from a minimal zot image using a node exporter</a></h4>
+<div class="paragraph">
+<p>Although a minimal zot image does not contain a node exporter, it
+exposes internal metrics in a Prometheus format for collection by a separate
+node exporter tool such as <code>zxp</code>. The zot companion binary <code>zxp</code>
+is a node exporter that can be deployed with a minimal zot image in
+order to scrape metrics from the zot server.</p>
+</div>
+<div class="paragraph">
+<p>Metrics are automatically enabled in the zot server upon first scrape
+from the node exporter and the metrics are automatically disabled when the node
+exporter has not performed any scraping for some period. No extra zot
+configuration is needed for this behavior.</p>
+</div>
+<div class="paragraph">
+<p>You can download the <code>zxp</code> executable binary for your server platform and
+architecture under "Assets" on the GitHub
+<a href="https://github.com/project-zot/zot/releases">zot releases</a> page.</p>
+</div>
+<div class="paragraph">
+<p>The binary image is named using the target platform and architecture. For example,
+the binary for an Intel-based MacOS server is
+<code>zxp-darwin-amd64</code>.  To configure the <code>zxp</code> example image, run this command:</p>
+</div>
+<div class="paragraph">
+<p><code><strong>zxp-darwin-amd64</strong> <strong>config</strong> <em>zxp-config-file</em></code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For convenience, you can rename the binary image file to simply <code>zxp.</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The configuration file of <code>zxp</code> contains connection details for the zot
+server from which it will scrape metrics. The following JSON structure is an example
+of the <code><em>zxp-config-file</em></code> contents:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "Server": {
+        "protocol": "http",
+        "host": "127.0.0.1",
+        "port": "8080"
+    },
+    "Exporter": {
+        "port": "8081",
+        "log": {
+            "level": "debug"
+        }
+    }
+}</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>zxp</code> module does not have Prometheus integration.</p>
+</div>
+<div class="paragraph">
+<p>The <code>zxp</code> module is not needed with a full zot image.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">MIKE&#8217;S QUESTIONS</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Do we need a chapter about zxp?</p>
+<p>Are these the only attributes?</p>
+</li>
+<li>
+<p>Do we need to say more about zxp?</p>
 </li>
 </ol>
 </div>
@@ -2586,7 +2666,7 @@ published by the Open Container Initiative (OCI).</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-We recommend installing zb when you install zot.
+We recommend installing and benchmarking with zb when you install zot.
 </td>
 </tr>
 </table>
@@ -2610,13 +2690,13 @@ We recommend installing zb when you install zot.
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_how_to_get_zb"><a class="anchor" href="#_how_to_get_zb"></a><a class="link" href="#_how_to_get_zb">How to get zb</a></h3>
+<div class="sect3">
+<h4 id="_how_to_get_zb"><a class="anchor" href="#_how_to_get_zb"></a><a class="link" href="#_how_to_get_zb">How to get zb</a></h4>
 <div class="paragraph">
 <p>The zb project is hosted with zot on GitHub at
 <a href="https://github.com/project-zot/zot">project-zot</a>.
 From GitHub, you can download the zb binary or you can build zb from the source.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_supported_platforms_3"><a class="anchor" href="#_supported_platforms_3"></a><a class="link" href="#_supported_platforms_3">Supported platforms</a></h4>
@@ -2669,10 +2749,10 @@ From GitHub, you can download the zb binary or you can build zb from the source.
 <a href="https://github.com/project-zot/zot/releases">zot releases</a> page.</p>
 </div>
 <div class="paragraph">
-<p>The binary image is named using the platform and architecture from the
+<p>The binary image is named using the target platform and architecture from the
  <a href="#supported-platforms-and-architectures-table-zb">Supported platforms and architectures</a>
  table.  For example, the binary for an Intel-based MacOS server is
- <code>zb-darwin-amd64.</code></p>
+ <code>zb-darwin-amd64</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2801,27 +2881,12 @@ p99: 26.375356ms
 ...</pre>
 </div>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">MIKE&#8217;S QUESTIONS</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Is there a zb Command Tree?</p>
-</li>
-<li>
-<p>Do we need to describe the command output from the example?</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_enterprise_wide_zot"><a class="anchor" href="#_enterprise_wide_zot"></a><a class="link" href="#_enterprise_wide_zot">Enterprise Wide zot</a></h2>
+<h2 id="_enterprise_wide_zot"><a class="anchor" href="#_enterprise_wide_zot"></a><a class="link" href="#_enterprise_wide_zot">Enterprise-wide zot</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_clustering_zot"><a class="anchor" href="#_clustering_zot"></a><a class="link" href="#_clustering_zot">Clustering zot</a></h3>
