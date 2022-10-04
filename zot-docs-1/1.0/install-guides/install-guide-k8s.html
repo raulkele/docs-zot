@@ -62,13 +62,10 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Installation Guides</span>
+    <span class="nav-text">User Guides</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="install-guide-linux.html">Installing zot on Bare Metal Linux</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="install-guide-k8s.html">Installing zot with Kubernetes and Helm</a>
+    <a class="nav-link" href="../user-guides/user-guide-datapath.html">Push and Pull Image Content</a>
   </li>
 </ul>
   </li>
@@ -92,6 +89,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Installation Guides</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="install-guide-linux.html">Installing zot on Bare Metal Linux</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="install-guide-k8s.html">Installing zot with Kubernetes and Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Articles</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
@@ -99,6 +112,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../kb/security-posture.html">zot Security Posture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../kb/storage.html">Storage Planning with zot</a>
   </li>
 </ul>
   </li>
@@ -150,8 +166,7 @@
 <p>Revised: 2022-09-12</p>
 </div>
 <div class="paragraph">
-<p>Using Kubernetes with Helm charts for zot, you can easily deploy zot as an
-application in a Kubernetes cluster.</p>
+<p>Using Kubernetes with Helm charts for zot, you can easily deploy zot as an application in a Kubernetes cluster.</p>
 </div>
 </div>
 </div>
@@ -174,8 +189,7 @@ application in a Kubernetes cluster.</p>
 <div class="sect2">
 <h3 id="_supported_platforms"><a class="anchor" href="#_supported_platforms"></a><a class="link" href="#_supported_platforms">Supported platforms</a></h3>
 <div class="paragraph">
-<p>You can install zot on standard Linux platforms with
-Intel or ARM processors and with systemd installed.</p>
+<p>You can install zot on standard Linux platforms with Intel or ARM processors and with systemd installed.</p>
 </div>
 <table class="tableblock frame-all grid-all fit-content">
 <caption class="title">Table 1. Supported platforms and architectures</caption>
@@ -208,9 +222,7 @@ Intel or ARM processors and with systemd installed.</p>
 <div class="sect2">
 <h3 id="_about_binary_images"><a class="anchor" href="#_about_binary_images"></a><a class="link" href="#_about_binary_images">About binary images</a></h3>
 <div class="paragraph">
-<p>Refer to <a href="../general/artifacts.html" class="xref page"><em>Released Artifacts for zot</em></a>
-for information about available zot images along with information about
-image variations, image locations, and image naming formats.</p>
+<p>Refer to <a href="../general/artifacts.html" class="xref page"><em>Released Artifacts for zot</em></a> for information about available zot images along with information about image variations, image locations, and image naming formats.</p>
 </div>
 </div>
 </div>
@@ -223,8 +235,7 @@ image variations, image locations, and image naming formats.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Specify a remote repository that contains the Helm charts for zot.  Give the repo
-a local name, such as <strong>project-zot</strong>, as in this example:</p>
+<p>Specify a remote repository that contains the Helm charts for zot.  Give the repo a local name, such as <strong>project-zot</strong>, as in this example:</p>
 <div class="paragraph">
 <p><code>$ <strong>helm repo add project-zot <a href="http://zotregistry.io/helm-charts" class="bare">http://zotregistry.io/helm-charts</a></strong></code></p>
 </div>
@@ -276,8 +287,7 @@ The APP VERSION is the version/tag of the zot image used for the deployment.
 </div>
 </li>
 <li>
-<p>Update to the latest information of available charts from the chart repository,
-as shown in this example:</p>
+<p>Update to the latest information of available charts from the chart repository, as shown in this example:</p>
 <div class="paragraph">
 <p><code>$ <strong>helm repo update project-zot</strong></code></p>
 </div>
@@ -328,12 +338,7 @@ service:
 <div class="sect2">
 <h3 id="_step_2_determine_any_needed_changes_from_the_helm_charts_defaults"><a class="anchor" href="#_step_2_determine_any_needed_changes_from_the_helm_charts_defaults"></a><a class="link" href="#_step_2_determine_any_needed_changes_from_the_helm_charts_defaults">Step 2: Determine any needed changes from the Helm chart&#8217;s defaults</a></h3>
 <div class="paragraph">
-<p>Inspect the default information of the Helm chart, as shown in the previous
-step. In many cases, the default chart values may be acceptable. If your
-installation requires any non-default settings, you may be able to specify them
-during the installation. Not all chart values are configurable, but you can
-display those that are configurable using the command in the following
-example:</p>
+<p>Inspect the default information of the Helm chart, as shown in the previous step. In many cases, the default chart values may be acceptable. If your installation requires any non-default settings, you may be able to specify them during the installation. Not all chart values are configurable, but you can display those that are configurable using the command in the following example:</p>
 </div>
 <div class="paragraph">
 <p><code>$ <strong>helm show values project-zot/zot</strong></code></p>
@@ -358,8 +363,7 @@ example:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The configurable settings in the chart are listed in the following
-table:</p>
+<p>The configurable settings in the chart are listed in the following table:</p>
 </div>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
@@ -431,19 +435,16 @@ Headless</p></td>
 <div class="sect3">
 <h4 id="_customizing_the_helm_chart_using_set"><a class="anchor" href="#_customizing_the_helm_chart_using_set"></a><a class="link" href="#_customizing_the_helm_chart_using_set">Customizing the Helm chart using 'set'</a></h4>
 <div class="paragraph">
-<p>To override the default values in the chart, you can pass your custom values
-by adding the <code>--set</code> flag in the <code>helm install</code> command.</p>
+<p>To override the default values in the chart, you can pass your custom values by adding the <code>--set</code> flag in the <code>helm install</code> command.</p>
 </div>
 <div class="paragraph">
-<p>For example, if your servers use an ARM processor instead of Intel, you must
-change the <code>image.repository</code> name from <strong>zot-linux-amd64</strong> to <strong>zot-linux-arm64</strong>:</p>
+<p>For example, if your servers use an ARM processor instead of Intel, you must change the <code>image.repository</code> name from <strong>zot-linux-amd64</strong> to <strong>zot-linux-arm64</strong>:</p>
 </div>
 <div class="paragraph">
 <p><code>--set image.repository=ghcr.io/project-zot/zot-linux-arm64</code></p>
 </div>
 <div class="paragraph">
-<p>You can change multiple settings with one <code>--set</code> statement. For example, you
-might want your installation to have more replicas or a different port number:</p>
+<p>You can change multiple settings with one <code>--set</code> statement. For example, you might want your installation to have more replicas or a different port number:</p>
 </div>
 <div class="paragraph">
 <p><code>--set replicaCount=2,service.port=5050</code></p>
@@ -452,10 +453,7 @@ might want your installation to have more replicas or a different port number:</
 <div class="sect3">
 <h4 id="_customizing_the_helm_chart_using_a_file"><a class="anchor" href="#_customizing_the_helm_chart_using_a_file"></a><a class="link" href="#_customizing_the_helm_chart_using_a_file">Customizing the Helm chart using a file</a></h4>
 <div class="paragraph">
-<p>You can also create a YAML file with your overrides and then add the new file
-by adding the <code>-f</code> flag to the <code>helm install</code> command. For example, to override
-the replica count and port number, the contents of your YAML file (for example,
-"myfile.yaml") would be:</p>
+<p>You can also create a YAML file with your overrides and then add the new file by adding the <code>-f</code> flag to the <code>helm install</code> command. For example, to override the replica count and port number, the contents of your YAML file (for example, "myfile.yaml") would be:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -474,19 +472,14 @@ service:
 <div class="sect3">
 <h4 id="_additional_information"><a class="anchor" href="#_additional_information"></a><a class="link" href="#_additional_information">Additional information</a></h4>
 <div class="paragraph">
-<p>See the
-<a href="https://helm.sh/docs/">Helm documentation</a> for further information about modifying
-the Helm chart.</p>
+<p>See the <a href="https://helm.sh/docs/">Helm documentation</a> for further information about modifying the Helm chart.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_step_3_install_zot"><a class="anchor" href="#_step_3_install_zot"></a><a class="link" href="#_step_3_install_zot">Step 3: Install zot</a></h3>
 <div class="paragraph">
-<p>Install zot using the <code>helm install</code> command.  The first example shows
-how to perform a default installation. The additional examples show different
-ways to modify the <code>helm install</code> command to override default settings in the
-Helm chart:</p>
+<p>Install zot using the <code>helm install</code> command.  The first example shows how to perform a default installation. The additional examples show different ways to modify the <code>helm install</code> command to override default settings in the Helm chart:</p>
 </div>
 <div class="paragraph">
 <div class="title">Example 1: use default chart parameters</div>
@@ -548,8 +541,7 @@ zot   default    1         &lt;datetime&gt; deployed  zot-0.1.0  v1.4.1</pre>
 </div>
 </li>
 <li>
-<p>After making sure that your pods are up and running, execute the following
-commands:</p>
+<p>After making sure that your pods are up and running, execute the following commands:</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services zot)
@@ -559,8 +551,7 @@ $ curl http://$NODE_IP:$NODE_PORT/v2/_catalog</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The response should display the current contents of your zot repository, which
-should be empty immediately after installation:</p>
+<p>The response should display the current contents of your zot repository, which should be empty immediately after installation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -574,8 +565,7 @@ should be empty immediately after installation:</p>
 <div class="sect2">
 <h3 id="_edit_the_zot_configuration_file"><a class="anchor" href="#_edit_the_zot_configuration_file"></a><a class="link" href="#_edit_the_zot_configuration_file">Edit the zot configuration file</a></h3>
 <div class="paragraph">
-<p>The zot configuration file is a JSON or YAML file
-that contains all configuration settings for zot functions such as:</p>
+<p>The zot configuration file is a JSON or YAML file that contains all configuration settings for zot functions such as:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -631,9 +621,7 @@ that contains all configuration settings for zot functions such as:</p>
 <p>The zot configuration file is located at <code>/etc/zot/config.json</code>.</p>
 </div>
 <div class="paragraph">
-<p>Refer to the <a href="../admin-guide/admin-guide.html" class="xref page"><em>Zot Administrator Guide</em></a>
-for complete information on configuring
-the zot server with the zot configuration file.</p>
+<p>Refer to the <a href="../admin-guide/admin-guide.html" class="xref page"><em>Zot Administrator Guide</em></a> for complete information on configuring the zot server with the zot configuration file.</p>
 </div>
 </div>
 </div>
@@ -642,8 +630,7 @@ the zot server with the zot configuration file.</p>
 <h2 id="_uninstalling_zot"><a class="anchor" href="#_uninstalling_zot"></a><a class="link" href="#_uninstalling_zot">Uninstalling zot</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Should you need to uninstall zot, use the <code>helm uninstall</code> command, as in
-this example:</p>
+<p>Should you need to uninstall zot, use the <code>helm uninstall</code> command, as in this example:</p>
 </div>
 <div class="paragraph">
 <p><code>$ <strong>helm uninstall zot</strong></code></p>
