@@ -22,7 +22,7 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item" href="https://zotregistry.io/site-zot/">Home</a>
+        <a class="navbar-item" href="https://zotregistry.io/">Home</a>
       </div>
     </div>
   </nav>
@@ -109,6 +109,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../kb/building-ci-cd-pipeline.html">Building an OCI-native Container Image CI/CD Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../kb/authn-authz.html">User Authentication and Authorization with zot</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../kb/security-posture.html">zot Security Posture</a>
@@ -1300,358 +1303,16 @@ application.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Zot also provides these additional security features:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Ability to delay response to an authentication
-failure in order to prevent automated attacks.
-See <a href="#_failure_delay">Preventing automated attacks with failure delay</a>.</p>
-</li>
-<li>
-<p>Ability to limit the rate of API calls from users in order to prevent
-denial-of-service attacks. See <a href="#_rate_limiting">Rate limiting</a>.</p>
-</li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="_tls_authentication"><a class="anchor" href="#_tls_authentication"></a><a class="link" href="#_tls_authentication">TLS mutual authentication</a></h4>
-<div class="paragraph">
-<p>Use the <code>tls</code> attribute under <code>http</code> in the configuration file to enable and
-configure TLS mutual authentication, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"http": {
-  "tls": {
-    "cert":"test/data/server.cert",
-    "key":"test/data/server.key",
-    "cacert":"test/data/cacert.cert"
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following table lists the configurable attributes.</p>
-</div>
-<table class="tableblock frame-all grid-all fit-content">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Attribute</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cert</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The path and filename of the server&#8217;s SSL/TLS certificate.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>key</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The path and filename of the server&#8217;s registry key.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cacert</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The path and filename of the server&#8217;s <code>cacerts</code> file, which contains
-trusted certificate authority (CA) certificates. Specifying a <code>cacert</code> file
-enables TLS mutual authentication.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="_basic_authentication"><a class="anchor" href="#_basic_authentication"></a><a class="link" href="#_basic_authentication">Basic authentication</a></h4>
-<div class="paragraph">
-<p>Use the <code>auth</code> and <code>htpasswd</code> attributes under <code>http</code> in the configuration file
-to enable and configure local authentication, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"http": {
-  "auth": {
-    "htpasswd": {
-      "path": "test/data/htpasswd"
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>path</code> attribute specifies the path and filename of the <code>.htpasswd</code> file, which
-contains user names and hashed passwords.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When both htpasswd and LDAP configuration are specified, LDAP authentication
-is given preference.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_ldap_authentication"><a class="anchor" href="#_ldap_authentication"></a><a class="link" href="#_ldap_authentication">LDAP authentication</a></h4>
-<div class="paragraph">
-<p>Use the <code>auth</code> and <code>ldap</code> attributes under <code>http</code> in the configuration file
-to enable and configure LDAP authentication, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"http": {
-  "auth": {
-    "ldap": {
-      "address": "ldap.example.org",
-      "port": 389,
-      "startTLS": false,
-      "baseDN": "ou=Users,dc=example,dc=org",
-      "userAttribute": "uid",
-      "bindDN": "cn=ldap-searcher,ou=Users,dc=example,dc=org",
-      "bindPassword": "ldap-searcher-password",
-      "skipVerify": false,
-      "subtreeSearch": true
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following table lists the configurable attributes for LDAP authentication.</p>
-</div>
-<table class="tableblock frame-all grid-all fit-content">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Attribute</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>address</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address or hostname of the LDAP server.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port number used by the LDAP service.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTLS</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to <code>true</code> to enable TLS communication with the LDAP server.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>baseDN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Starting location within the LDAP directory for performing user searches.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userAttribute</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Attribute name used for a user.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bindDN</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base Distinguished Name for the LDAP search.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bindPassword</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password of the bind LDAP user.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>skipVerify</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Skip TLS verification.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtreeSearch</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to <code>true</code> to expand the scope for search to include subtrees of the base DN.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When both htpasswd and LDAP configuration are specified, LDAP authentication
-is given preference.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_bearer_authentication"><a class="anchor" href="#_bearer_authentication"></a><a class="link" href="#_bearer_authentication">Bearer authentication</a></h4>
-<div class="paragraph">
-<p>Zot supports OAuth2 by using a Bearer Token.  Use the <code>auth</code> and <code>bearer</code>
-attributes under <code>http</code> in the configuration file to enable and configure OAuth2
-authentication, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"http": {
-  "auth": {
-    "bearer": {
-      "realm": "https://auth.myreg.io/auth/token",
-      "service": "myauth",
-      "cert": "/etc/zot/auth.crt"
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following table lists the configurable attributes.</p>
-</div>
-<table class="tableblock frame-all grid-all fit-content">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Attribute</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>realm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A string typically related to the authentication scheme (<em>BASIC</em> and <em>BEARER</em>).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the authentication service.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cert</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The path and filename of the server&#8217;s SSL/TLS certificate.</p></td>
-</tr>
-</tbody>
-</table>
+<p>For detailed information about configuring authentication for your <code>zot</code> registry, see <a href="../kb/authn-authz.html" class="xref page">User Authentication and Authorization with zot</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_identity_based_authorization"><a class="anchor" href="#_identity_based_authorization"></a><a class="link" href="#_identity_based_authorization">Identity-based authorization</a></h3>
 <div class="paragraph">
-<p>User identity can be used as an authorization criterion for allowing actions on
-one or more repository paths.  For specific users, you can choose to allow any
-combination of read, create, update, or delete actions on specific paths.</p>
+<p>User identity can be used as an authorization criterion for allowing actions on one or more repository paths.  For specific users, you can choose to allow any combination of read, create, update, or delete actions on specific repository paths.</p>
 </div>
 <div class="paragraph">
-<p>For defining policies for specific repository paths, the paths can be specified
-explicitly or by using <code>glob</code> patterns with simple or recursive wildcards.
-When a repository path matches more than one path description, authorization
-is granted based on the policy of the longest (most specific) path matched.  For
-example, if policies are defined for path descriptions <strong>**</strong> and <code>repos2/repo,</code>
-the <code>repos2/repo</code> path will match both <strong>**</strong> and <code>repos2/repo</code> descriptions.
-In this case, the <code>repos2/repo</code> policy will be applied because it is longer.</p>
-</div>
-<div class="paragraph">
-<p>Note that <strong>**</strong> effectively defines the default policy, as it matches any path
-not matched by any other per-repository policy. To override all other policies,
-you can specify a global admin policy.</p>
-</div>
-<div class="paragraph">
-<p>Use the <code>accessControl</code> attribute in the configuration file to define a set of
-identity-based authorization policies, as shown in the following example.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"accessControl": {
-  "**": {
-    "policies": [{
-      "users": ["charlie"],
-      "actions": ["read", "create", "update"]
-    }],
-    "defaultPolicy": ["read", "create"]
-  },
-  "tmp/**": {
-    "defaultPolicy": ["read", "create", "update"]
-  },
-  "infra/*": {
-    "policies": [{
-        "users": ["alice", "bob"],
-        "actions": ["create", "read", "update", "delete"]
-      },
-      {
-        "users": ["mallory"],
-        "actions": ["create", "read"]
-      }
-    ],
-    "defaultPolicy": ["read"]
-  },
-  "repos2/repo": {
-    "policies": [{
-        "users": ["bob"],
-        "actions": ["read", "create"]
-      },
-      {
-        "users": ["mallory"],
-        "actions": ["create", "read"]
-      }
-    ],
-    "defaultPolicy": ["read"]
-  },
-  "adminPolicy": {
-    "users": ["admin"],
-    "actions": ["read", "create", "update", "delete"]
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, five policies are defined:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The default policy (<strong>**</strong>) gives all users the ability to
-read or create content, while giving user "charlie" the additional ability to
-update content.</p>
-</li>
-<li>
-<p>The policy for <code>tmp/**</code> matches all repositories under <code>tmp</code> recursively
-and allows all users to read, create, or update content in those repositories.</p>
-</li>
-<li>
-<p>The policy for <code>infra/*</code> matches all repositories directly under <code>infra.</code>
-Separate policies are defined for specific users, along with a default
-read-only policy for all other users.</p>
-</li>
-<li>
-<p>The policy for <code>repos2/repo</code> matches only that specific repository.</p>
-</li>
-<li>
-<p>An admin policy (<code>adminPolicy</code>) gives the user "admin" global authorization to
-read, create, update, or delete content in any repository, overriding all other
-policies.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Always include the read action in any policy that you define.  The create,
-update, and delete actions cannot be used without the read action.
-</td>
-</tr>
-</table>
+<p>For detailed information about configuring access control policies for your <code>zot</code> registry, see <a href="../kb/authn-authz.html" class="xref page">User Authentication and Authorization with zot</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2502,114 +2163,6 @@ with the remote storage.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_advanced_topics"><a class="anchor" href="#_advanced_topics"></a><a class="link" href="#_advanced_topics">Advanced topics</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_creating_a_trusted_image_pipeline_with_zot_cosign_and_notation"><a class="anchor" href="#_creating_a_trusted_image_pipeline_with_zot_cosign_and_notation"></a><a class="link" href="#_creating_a_trusted_image_pipeline_with_zot_cosign_and_notation">Creating a trusted image pipeline with zot, cosign, and notation</a></h3>
-<div class="sect3">
-<h4 id="_install_and_start_a_zot_server"><a class="anchor" href="#_install_and_start_a_zot_server"></a><a class="link" href="#_install_and_start_a_zot_server">Install and start a zot server</a></h4>
-<div class="paragraph">
-<p>This example uses podman to install and start a zot server at
-<a href="http://localhost:5000" class="bare">http://localhost:5000</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ podman run -p 5000:5000 ghcr.io/project-zot/zot-linux-amd64:latest</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_push_or_pull_images_using_skopeo"><a class="anchor" href="#_push_or_pull_images_using_skopeo"></a><a class="link" href="#_push_or_pull_images_using_skopeo">Push or pull images using skopeo</a></h4>
-<div class="paragraph">
-<p><a href="https://github.com/containers/skopeo">Skopeo</a>
-is a command line tool for performing operations on container images and
-image repositories. In this example, skopeo copies the latest container
-image for the <code>busybox</code> application from docker.io to the local zot server.
-The image is then copied to a local OCI-layout directory, where it is added
-to the manifest.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ skopeo --insecure-policy copy --dest-tls-verify=false --multi-arch=all \
-   --format=oci docker://busybox:latest docker://localhost:5000/busybox:latest
-Getting image source signatures
-Copying blob 554879bc3004 done
-Copying config 02611c034a done
-Writing manifest to image destination
-Storing signatures
-
-$ skopeo --insecure-policy copy --src-tls-verify=false --multi-arch=all \
-   docker://localhost:5000/busybox:latest oci:/tmp/images:busybox:latest
-Getting image source signatures
-Copying blob 554879bc3004 done
-Copying config 02611c034a done
-Writing manifest to image destination
-Storing signatures
-
-$ cat /tmp/images/index.json | jq .
-{ "schemaVersion": 2,
-  "manifests": [
-    {
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf",
-      "size": 347,
-      "annotations": {
-        "org.opencontainers.image/ref.name": "busybox:latest"
-      }
-    }
-  ]
-}</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_image_signatures"><a class="anchor" href="#_image_signatures"></a><a class="link" href="#_image_signatures">Image signatures</a></h4>
-<div class="paragraph">
-<p>For signing container images, zot supports two open-source signing tools&#8201;&#8212;&#8201;<a href="http://github.com/sigstore/cosign">cosign</a> and
-<a href="http://github.com/notaryproject">notation</a>. In the following examples, a key pair
-is generated and an image file in the registry is signed using the private key.</p>
-</div>
-<div class="listingblock">
-<div class="title">Using cosign</div>
-<div class="content">
-<pre>$ cosign generate-key-pair
-Enter password for private key:
-Enter password for private key again:
-Private key written to cosign.key
-Public key written to cosign.pub
-
-$ cosign sign --key cosign.key localhost:5000/busybox:latest
-Enter password for private key:
-Pushing signature to: localhost:5000/busybox</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Using notation</div>
-<div class="content">
-<pre>$ notation cert generate-test --default --trust "zot-demo"
-generating RSA Key with 2048 bits
-generated certificates expiring on 2023-04-11T08:02:48Z
-wrote key: /home/user1/.config/notation/key/zot-demo.key
-wrote certificate /home/user1/.config/notation/certificate/zot-demo.cert
-zot-demo: added to the key list
-zot-demo: marked as default
-zot-demo: added to the certificate list
-
-$ notation sign --plain-http localhost:5000/busybox:latest
-sha256:asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-
-$ notation list --plain-http localhost:5000/busybox:latest
-sha256:1234567812345678123456781234567812345678123456781234567812345678
-
-$ notation verify --plain-http localhost:5000/busybox:latest
-sha256:asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_maintenance"><a class="anchor" href="#_maintenance"></a><a class="link" href="#_maintenance">Maintenance</a></h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -2906,10 +2459,8 @@ documentation, or language that is used by a referenced third-party product.</p>
 </main>
 </div>
 <footer class="footer">
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
 </footer>
-<script src="../../../_/js/site.js"></script>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
   </body>
 </html>
